@@ -1,7 +1,8 @@
 using System;
+using FriendlyMonster.RhubarbTimeline;
 using UnityEngine.Playables;
 
-namespace FriendlyMonster.RhubarbTimeline
+namespace UnityEngine.Timeline
 {
     [Serializable]
     public class RhubarbPlayableBehaviour : PlayableBehaviour

@@ -1,7 +1,6 @@
 using UnityEditor;
-using UnityEngine;
 
-namespace FriendlyMonster.RhubarbTimeline
+namespace UnityEngine.Timeline
 {
     [CustomPropertyDrawer(typeof(RhubarbPlayableBehaviour))]
     public class RhubarbPlayableDrawer : PropertyDrawer

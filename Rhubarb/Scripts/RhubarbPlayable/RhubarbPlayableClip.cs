@@ -1,9 +1,7 @@
 using System;
-using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Timeline;
 
-namespace FriendlyMonster.RhubarbTimeline
+namespace UnityEngine.Timeline
 {
     [Serializable]
     public class RhubarbPlayableClip : PlayableAsset, ITimelineClipAsset

@@ -1,7 +1,7 @@
-using UnityEngine;
+using FriendlyMonster.RhubarbTimeline;
 using UnityEngine.Playables;
 
-namespace FriendlyMonster.RhubarbTimeline
+namespace UnityEngine.Timeline
 {
     public class RhubarbPlayabeMixerBehaviour : PlayableBehaviour
     {

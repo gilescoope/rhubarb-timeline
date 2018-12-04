@@ -1,8 +1,7 @@
-using UnityEngine;
+using FriendlyMonster.RhubarbTimeline;
 using UnityEngine.Playables;
-using UnityEngine.Timeline;
 
-namespace FriendlyMonster.RhubarbTimeline
+namespace UnityEngine.Timeline
 {
     [TrackColor(0.855f, 0.8623f, 0.87f)]
     [TrackClipType(typeof(RhubarbPlayableClip))]
