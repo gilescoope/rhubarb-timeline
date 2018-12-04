@@ -69,7 +69,7 @@ namespace FriendlyMonster.RhubarbTimeline
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
-            
+
             process.Start();
 
             while (!process.StandardOutput.EndOfStream)
@@ -95,18 +95,21 @@ namespace FriendlyMonster.RhubarbTimeline
             {
                 arg += "G";
             }
-
             if (_isH)
             {
                 arg += "H";
             }
-
             if (_isX)
             {
                 arg += "X";
             }
 
+#if UNITY_EDITOR_WIN
+            return arg.Length > 0 ? arg : "\"\"";
+#endif
+#if UNITY_EDITOR_OSX
             return arg.Length > 0 ? arg : "\'\'";
+#endif
         }
     }
 }
