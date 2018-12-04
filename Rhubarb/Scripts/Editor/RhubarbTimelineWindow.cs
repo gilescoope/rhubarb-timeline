@@ -63,6 +63,7 @@ namespace FriendlyMonster.RhubarbTimeline
                 EditorGUILayout.Separator();
 
                 _audioClip = (AudioClip) EditorGUILayout.ObjectField("Audio Clip", _audioClip, typeof(AudioClip), false);
+                
                 _isUseDialog = EditorGUILayout.Toggle("Use Dialog", _isUseDialog);
                 if (_isUseDialog)
                 {
@@ -83,10 +84,18 @@ namespace FriendlyMonster.RhubarbTimeline
 
                 EditorGUILayout.Separator();
 
-                EditorGUI.BeginDisabledGroup(_timeline == null || _rhubarbSprite == null || _audioClip == null);
+                EditorGUI.BeginDisabledGroup(_timeline == null || _rhubarbSprite == null || _audioSource == null || _audioClip == null);
                 if (GUILayout.Button("Generate"))
                 {
-                    Generate();
+                    if (_audioClip != null && !IsAudioClipWavOrOgg())
+                    {
+                        EditorUtility.DisplayDialog("Error", "Rhubarb currently only supports .wav and .ogg files", "OK");
+                        _audioClip = null;
+                    }
+                    else
+                    {
+                        Generate();
+                    }
                 }
 
                 EditorGUI.EndDisabledGroup();
@@ -99,9 +108,20 @@ namespace FriendlyMonster.RhubarbTimeline
             }
         }
 
+        private bool IsAudioClipWavOrOgg()
+        {
+            string audioPath = AssetDatabase.GetAssetPath(_audioClip).ToLower();
+            return audioPath.EndsWith(".wav") || audioPath.EndsWith(".ogg");
+        }
+
         private void LocateRhubarb()
         {
+#if UNITY_EDITOR_WIN
             _rhubarbPath = EditorUtility.OpenFilePanel("Open Rhubarb exe", "", "exe");
+    #endif
+#if UNITY_EDITOR_OSX
+            _rhubarbPath = EditorUtility.OpenFilePanel("Open Rhubarb", "", "");
+    #endif
         }
 
         private bool IsRhubarbPathValid()

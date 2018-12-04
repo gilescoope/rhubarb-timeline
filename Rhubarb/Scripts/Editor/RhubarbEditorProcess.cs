@@ -19,11 +19,21 @@ namespace FriendlyMonster.RhubarbTimeline
 #endif
         }
 
+        private static string FixPath(string path)
+        {
+#if UNITY_EDITOR_WIN
+            return path.Replace("/", "\\");
+#endif
+#if UNITY_EDITOR_OSX
+            return path.Replace("\\", "/").Replace(" ", "\\ ");
+#endif
+        }
+
         public static RhubarbTrack Auto(string rhubarbPath, string audioPath, string dialog, bool _isG = true, bool _isH = true, bool _isX = true)
         {
-            rhubarbPath = rhubarbPath.Replace("/", "\\");
-            audioPath = audioPath.Replace("/", "\\");
-            string dialogPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets/dialog.txt").Replace("/", "\\");
+            rhubarbPath = FixPath(rhubarbPath);
+            audioPath = FixPath(audioPath);
+            string dialogPath = FixPath(Path.Combine(Directory.GetCurrentDirectory(), "Assets/dialog.txt"));
 
             RhubarbTrack rhubarbTrack = ScriptableObject.CreateInstance<RhubarbTrack>();
             rhubarbTrack.keyframes = new List<RhubarbKeyframe>();
@@ -48,17 +58,18 @@ namespace FriendlyMonster.RhubarbTimeline
 #endif
 
 #if UNITY_EDITOR_OSX
-        process.StartInfo.FileName = "/bin/bash";
-        string command = rhubarbPath.Replace(Application.dataPath, "Assets") + "/Release/rhubarb ";
-        command += isDialog ? "--dialogFile " + dialogPath.Replace(" ", "\\ ") + " " : "";
-        command += isOutput ? "--output " + outputPath.Replace(" ", "\\ ") + " " : "";
-        command += audioPath.Replace(" ", "\\ ");
-        command += "--extendedShapes " + extendedMouthShapesArgument + " ";
-        process.StartInfo.Arguments = "-c \" " + command + " \"";
+            process.StartInfo.FileName = "/bin/bash";
+            string command = rhubarbPath + " ";
+            command += audioPath + " ";
+            command += isDialog ? "--dialogFile " + dialogPath + " " : "";
+            command += "--extendedShapes " + extendedMouthShapesArgument;
+            process.StartInfo.Arguments = "-c \" " + command + " \"";
 #endif
 
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            
             process.Start();
 
             while (!process.StandardOutput.EndOfStream)
@@ -95,7 +106,7 @@ namespace FriendlyMonster.RhubarbTimeline
                 arg += "X";
             }
 
-            return arg.Length > 0 ? arg : "\"\"";
+            return arg.Length > 0 ? arg : "\'\'";
         }
     }
 }
