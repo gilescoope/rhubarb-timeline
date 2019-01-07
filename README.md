@@ -1,6 +1,8 @@
 # Rhubarb Timeline
 Unity Timeline tracks for Rhubarb Lip Sync
 
+https://youtu.be/n_LAp6tTjv0
+
 ## Rhubarb
 https://github.com/DanielSWolf/rhubarb-lip-sync
 Rhubarb Lip Sync is a command-line tool that automatically creates 2D mouth animation from voice recordings. This Unity extension allows an animator to add a Rhubarb Sprite component to a Game Object with a Sprite Renderer, then animate the mouth shapes in Timeline.
