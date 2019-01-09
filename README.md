@@ -28,3 +28,7 @@ The Game Objects for the Timeline (Playable Director), Rhubarb Sprite and Audio 
 The AudioClip to be used for generation can be assigned, if you try and use a file without the extension ".wav" or ".ogg" you will get a warning and not be able to generate the tracks.
 
 The other settings correspond to the command-line options for Rhubarb which can be found at https://github.com/DanielSWolf/rhubarb-lip-sync.
+
+## Limitations
+Rhubarb only supports WAVE (.wav) and Ogg Vorbis (.ogg) files.
+This plugin has only been tested on Windows and OSX.
